@@ -1,4 +1,5 @@
 import { create, all } from 'mathjs'
+import { Alert } from 'react-native'
 
 const config = {}
 const math = create(all, config)
@@ -34,14 +35,22 @@ export function addOperator(value, prevValue, setPrevValue) {
 
 export function percentages(prevValue, setPrevValue, setCurrentValue) {
   const expresion = handleBrackets(prevValue)
-  const result = (math.evaluate(expresion) / 100).toFixed(2)
+  let result = (math.evaluate(expresion) / 100).toFixed(2)
+  if (result === Infinity) {
+    result = ''
+    Alert.alert('Divide by 0 cannot be done.')
+  }
   setCurrentValue(result)
   setPrevValue(result)
 }
 
 export function equals(prevValue, setPrevValue, setCurrentValue) {
   const expresion = handleBrackets(prevValue)
-  const result = math.evaluate(expresion)
+  let result = math.evaluate(expresion)
+  if (result === Infinity) {
+    result = ''
+    Alert.alert('Divide by 0 cannot be done.')
+  }
   setCurrentValue(result)
   setPrevValue(result)
 }
