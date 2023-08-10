@@ -5,6 +5,7 @@ const config = {}
 const math = create(all, config)
 
 const integers = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
+const operants = ['+', '-', '×', '/']
 
 export function addNumber(value, prevValue, setPrevValue, setCurrentValue) {
   let cValue = null
@@ -14,17 +15,8 @@ export function addNumber(value, prevValue, setPrevValue, setCurrentValue) {
   if (value === '0' && prevValue === '0') cValue = prevValue
 
   setPrevValue(cValue)
-  if (prevValue.split('').some((item) => ['+', '-', '×', '/'].includes(item))) {
-    const expresion = handleBrackets(cValue)
-    let result = math.evaluate(expresion)
-    // If our result is infinity, we reset the calc.
-    if (result === Infinity) {
-      result = ''
-      Alert.alert('Divide by 0 cannot be done.')
-      setCurrentValue(result)
-      setPrevValue(result)
-    }
-    setCurrentValue(result)
+  if (prevValue.split('').some((item) => operants.includes(item))) {
+    update(cValue, setPrevValue, setCurrentValue)
   }
 }
 
@@ -33,8 +25,13 @@ export function clear(setPrevValue, setCurrentValue) {
   setCurrentValue('')
 }
 
-export function backspace(prevValue, setPrevValue) {
-  if (prevValue && prevValue.length >= 1) return setPrevValue(prevValue.substring(0, prevValue.length - 1))
+export function backspace(prevValue, setPrevValue, setCurrentValue) {
+  let cValue = null
+  if (prevValue && prevValue.length >= 1) cValue = prevValue.substring(0, prevValue.length - 1)
+  setPrevValue(cValue)
+  if (!operants.includes(cValue.slice(-1))) {
+    update(cValue, setPrevValue, setCurrentValue)
+  }
 }
 
 export function addBracket(prevValue, setPrevValue) {
@@ -85,4 +82,16 @@ function handleBrackets(value) {
     }
   }
   return expresion
+}
+
+function update(input, setPrevValue, setCurrentValue) {
+  const expresion = handleBrackets(input)
+  let result = math.evaluate(expresion)
+  if (result === Infinity) {
+    result = ''
+    Alert.alert('Divide by 0 cannot be done.')
+    setCurrentValue(result)
+    setPrevValue(result)
+  }
+  setCurrentValue(result)
 }
