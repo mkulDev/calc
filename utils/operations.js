@@ -6,11 +6,26 @@ const math = create(all, config)
 
 const integers = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
 
-export function addNumber(value, prevValue, setPrevValue) {
-  if (integers.includes(value)) return setPrevValue(prevValue + value)
-  if (value === '.' && !prevValue.split('').includes(value)) return setPrevValue(prevValue + value)
-  if (value === '0' && prevValue !== '0') return setPrevValue(prevValue + '0')
-  if (value === '0' && prevValue === '0') return setPrevValue(prevValue)
+export function addNumber(value, prevValue, setPrevValue, setCurrentValue) {
+  let cValue = null
+  if (integers.includes(value)) cValue = prevValue + value
+  if (value === '.' && !prevValue.split('').includes(value)) cValue = prevValue + value
+  if (value === '0' && prevValue !== '0') cValue = prevValue + '0'
+  if (value === '0' && prevValue === '0') cValue = prevValue
+
+  setPrevValue(cValue)
+  if (prevValue.split('').some((item) => ['+', '-', '×', '/'].includes(item))) {
+    const expresion = handleBrackets(cValue)
+    let result = math.evaluate(expresion)
+    // If our result is infinity, we reset the calc.
+    if (result === Infinity) {
+      result = ''
+      Alert.alert('Divide by 0 cannot be done.')
+      setCurrentValue(result)
+      setPrevValue(result)
+    }
+    setCurrentValue(result)
+  }
 }
 
 export function clear(setPrevValue, setCurrentValue) {
@@ -29,19 +44,21 @@ export function addBracket(prevValue, setPrevValue) {
 }
 
 export function addOperator(value, prevValue, setPrevValue) {
-  if (['+', '-'].includes(value)) return setPrevValue(prevValue + value)
-  if (value === '×') return setPrevValue(prevValue + value)
-  if (value === '/') return setPrevValue(prevValue + value)
+  if (['+', '-'].includes(value)) setPrevValue(prevValue + value)
+  if (value === '×') setPrevValue(prevValue + value)
+  if (value === '/') setPrevValue(prevValue + value)
 }
 
 export function percentages(prevValue, setPrevValue, setCurrentValue) {
+  const multipler = 0.01
+  const decimalPrecision = 2
   const expresion = handleBrackets(prevValue)
   let result = math.evaluate(expresion)
   if (result === Infinity) {
     result = ''
     Alert.alert('Divide by 0 cannot be done.')
   } else {
-    result = (result / 100).toFixed(2)
+    result = (result * multipler).toFixed(decimalPrecision)
   }
 
   setCurrentValue(result)
@@ -60,7 +77,7 @@ export function equals(prevValue, setPrevValue, setCurrentValue) {
 }
 
 function handleBrackets(value) {
-  let expresion = value.replaceAll('×', '*')
+  let expresion = value.toString().replaceAll('×', '*')
   if (expresion.includes('(')) {
     const numberOfNeededBrackets = expresion.split('').filter((symbol) => symbol === '(').length - expresion.split('').filter((symbol) => symbol === ')').length
     for (let i = 0; i < numberOfNeededBrackets; i++) {

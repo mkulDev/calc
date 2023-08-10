@@ -8,11 +8,11 @@ const Btn = ({ value, operation }) => {
   const { prevValue, setPrevValue, setCurrentValue } = useContext(StateContext)
 
   const operationFunctions = {
-    addNumber: { func: addNumber, arguments: [value, prevValue, setPrevValue] },
+    addNumber: { func: addNumber, arguments: [value, prevValue, setPrevValue, setCurrentValue] },
     clear: { func: clear, arguments: [setPrevValue, setCurrentValue] },
     backspace: { func: backspace, arguments: [prevValue, setPrevValue] },
     addBracket: { func: addBracket, arguments: [prevValue, setPrevValue] },
-    addOperator: { func: addOperator, arguments: [value, prevValue, setPrevValue] },
+    addOperator: { func: addOperator, arguments: [value, prevValue, setPrevValue, setCurrentValue] },
     equals: { func: equals, arguments: [prevValue, setPrevValue, setCurrentValue] },
     percentages: { func: percentages, arguments: [prevValue, setPrevValue, setCurrentValue] }
   }

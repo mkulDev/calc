@@ -1,16 +1,20 @@
-import { StatusBar } from 'expo-status-bar'
-import { StyleSheet, Text, View, SafeAreaView } from 'react-native'
+import { Text, View, SafeAreaView, StatusBar } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
-import { Feather } from '@expo/vector-icons'
+
 import Button from './components/Btn'
 import { useState } from 'react'
 import { StateContext } from './utils/context'
+import Logo from './assets/Logo.png'
 export default function App() {
   const [prevValue, setPrevValue] = useState('')
   const [currentValue, setCurrentValue] = useState('')
 
   return (
     <SafeAreaView className='bg-slate-200 w-full h-full'>
+      <StatusBar
+        backgroundColor='white'
+        barStyle='dark-content'
+      />
       <View className='bg-gray-300 flex-1 rounded-b-2xl justify-end items-end shadow-lg shadow-black'>
         <Text
           className='text-[30px] mx-4 '
