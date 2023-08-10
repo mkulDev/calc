@@ -21,13 +21,13 @@ const Btn = ({ value, operation }) => {
 
   return (
     <TouchableOpacity
-      className={`justify-center items-center m-2 p-2 rounded-2xl  ${value === '=' ? ' bg-orange-400' : 'bg-gray-300'} shadow-xl shadow-black`}
+      className={`justify-center items-center m-2 p-2 rounded-2xl  ${value === '=' ? ' bg-orange-400 border-4 border-[#ff9d4d]' : 'bg-[#303841] border-4 border-[#444a52]'} shadow-xl shadow-black`}
       onPress={() => {
         chosenOperation.func(...chosenOperation.arguments)
       }} // Spread the previous state and add the value
-      style={{ width: width * 0.2, height: width * 0.2 }}
+      style={{ width: width * 0.18, height: width * 0.18 }}
     >
-      <Text className='text-2xl'>{value}</Text>
+      <Text className='text-2xl text-[#f3f3f3]'>{value}</Text>
     </TouchableOpacity>
   )
 }

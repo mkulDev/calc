@@ -10,27 +10,27 @@ export default function App() {
   const [currentValue, setCurrentValue] = useState('')
 
   return (
-    <SafeAreaView className='bg-slate-200 w-full h-full'>
+    <SafeAreaView className='bg-[#f3f3f3] w-full h-full'>
       <StatusBar
         backgroundColor='white'
         barStyle='dark-content'
       />
-      <View className='bg-gray-300 flex-1 rounded-b-2xl justify-end items-end shadow-lg shadow-black'>
+      <View className='bg-[#d2d2d2] flex-1 rounded-b-2xl justify-end items-end  shadow-xl shadow-black'>
         <Text
-          className='text-[30px] mx-4 '
+          className='text-[30px] mx-4 text-[#303841]'
           style={{ textAlign: 'right' }}
         >
           {prevValue}
         </Text>
 
         <Text
-          className='text-[53px] mx-4 '
+          className='text-[53px] mx-4 text-[#303841]'
           style={{ textAlign: 'right' }}
         >
           {currentValue}
         </Text>
       </View>
-      <View className='flex-row flex-wrap justify-center my-10 '>
+      <View className='flex-row flex-wrap justify-center my-12 mx-4'>
         <StateContext.Provider value={{ prevValue, setPrevValue, setCurrentValue }}>
           <Button
             value='AC'
@@ -109,7 +109,7 @@ export default function App() {
               <Ionicons
                 name='backspace-outline'
                 size={24}
-                color='black'
+                color='#f3f3f3'
               />
             }
             operation='backspace'

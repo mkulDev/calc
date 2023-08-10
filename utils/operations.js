@@ -65,7 +65,7 @@ export function percentages(prevValue, setPrevValue, setCurrentValue) {
 export function equals(prevValue, setPrevValue, setCurrentValue) {
   const expresion = handleBrackets(prevValue)
   let result = math.evaluate(expresion)
-  if (result === Infinity) {
+  if (result === Infinity || result === -Infinity) {
     result = ''
     Alert.alert('Divide by 0 cannot be done.')
   }
@@ -87,7 +87,7 @@ function handleBrackets(value) {
 function update(input, setPrevValue, setCurrentValue) {
   const expresion = handleBrackets(input)
   let result = math.evaluate(expresion)
-  if (result === Infinity) {
+  if (result === Infinity || result === -Infinity) {
     result = ''
     Alert.alert('Divide by 0 cannot be done.')
     setCurrentValue(result)
