@@ -1,6 +1,7 @@
 # Calc 
 
 Calc is a simple calculator app built using React Native. This app was created for learning purposes and may contain room for further enhancements.
+You can download my app from https://drive.google.com/file/d/1WKfbfvni-cK49BFSyz62_F_eAQjfpgJz/view?usp=sharing
 
 ## Features
 
