@@ -31,7 +31,7 @@ Follow these steps to run the app locally:
 ## What I've Learned
 
 - Styling the UI using Tailwind CSS.
-- Implementing basic arithmetic operations and mathematical calculations.
+- Implementing basic React native components like View, Text, and TouchaleOpacity.
 - Using state management and context to manage calculator data.
 - Handling user interactions and button clicks.
 - Implementing error handling for scenarios like division by zero.
